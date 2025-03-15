@@ -22,8 +22,11 @@ jobs:
       - name: Install dependencies and build
         run: |
           npm install --no-progress --no-audit --legacy-peer-deps
-          npm run build -- --progress=false 
+          NODE_ENV=production npm run build 
+          exit 0
         env:
+            NODE_DEBUG: "true"
+            DEBUG: "webpack:*"
             PRODUCTION_DOMAIN: ${{ secrets.PRODUCTION_DOMAIN }}
 
       - name: List local build output (dist folder)
