@@ -24,7 +24,7 @@ jobs:
           npm install
           npm run build
         env:
-            PRODUCTION_DOMMAIN: ${{ secrets.PRODUCTION_DOMMAIN }}
+            PRODUCTION_DOMAIN: ${{ secrets.PRODUCTION_DOMAIN }}
 
       - name: List local build output (dist folder)
         run: ls -la dist
