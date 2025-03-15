@@ -21,13 +21,13 @@ jobs:
 
       - name: Install dependencies and build
         run: |
-          npm install --no-progress --no-audit --legacy-peer-deps 2>&1 | tee npm-install.log
-          npm run build 2>&1 | tee npm-build.log
+          npm install --no-progress --no-audit --legacy-peer-deps
+          npm run build -- --progress=false 
         env:
             PRODUCTION_DOMAIN: ${{ secrets.PRODUCTION_DOMAIN }}
 
       - name: List local build output (dist folder)
-        run: ls -la dist
+        run: ls -la dist/
 
       - name: Set up AWS CLI
         uses: shinyinc/action-aws-cli@v1.2
