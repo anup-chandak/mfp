@@ -21,8 +21,8 @@ jobs:
 
       - name: Install dependencies and build
         run: |
-          npm install
-          npm run build
+          npm install --no-progress --no-audit --legacy-peer-deps 2>&1 | tee npm-install.log
+          npm run build 2>&1 | tee npm-build.log
 
       - name: List local build output (dist folder)
         run: ls -la dist
