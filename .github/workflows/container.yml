@@ -16,12 +16,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
       - name: Install dependencies and build
         run: |
           npm install
           npm run build
+
+      - name: Verify Build Output
+        run: |
+          echo "Listing files in current directory:"
+          ls -la
+          echo "Listing files in the dist folder:"
+          ls -la dist
 
       - name: Set up AWS CLI
         uses: shinyinc/action-aws-cli@v1.2
@@ -30,5 +38,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ap-south-1
 
-      - name: Sync files to S3
+      - name: Upload files to S3
         run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/container/latest
+
