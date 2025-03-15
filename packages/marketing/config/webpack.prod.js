@@ -1,4 +1,3 @@
-const path = require('path');
 const { merge } = require('webpack-merge');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const packageJson = require('../package.json');
@@ -8,13 +7,12 @@ const prodConfig = {
   mode: 'production',
   output: {
     filename: '[name].[contenthash].js',
-    path: path.resolve(__dirname, 'dist'), // Explicitly set output directory
-    publicPath: 'https://your-cloudfront-url/marketing/latest/', // Ensure correct remote access
+    publicPath: '/marketing/latest/',
   },
   plugins: [
     new ModuleFederationPlugin({
       name: 'marketing',
-      filename: 'remoteEntry.js', // This should generate in dist/
+      filename: 'remoteEntry.js',
       exposes: {
         './MarketingApp': './src/bootstrap',
       },
@@ -24,4 +22,3 @@ const prodConfig = {
 };
 
 module.exports = merge(commonConfig, prodConfig);
-
